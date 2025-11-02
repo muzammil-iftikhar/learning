@@ -8,3 +8,6 @@ azure/
 .vagrant/
 arabic/
 cheat-sheets/
+.claude/
+CLAUDE.md
+GEMINI.md
