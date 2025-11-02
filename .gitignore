@@ -1,0 +1,10 @@
+.terraform/
+logs/
+scripts/
+target/
+azure/
+.vscode/
+.ruby-lsp/
+.vagrant/
+arabic/
+cheat-sheets/

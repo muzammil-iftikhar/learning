@@ -1,0 +1,71 @@
+version: "3.7"
+
+services:
+
+  mysql1:
+    container_name: mysql1
+    image: mysql:5.7.40
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: admin
+        MYSQL_DATABASE: wso2
+    volumes:
+      - mysql1:/var/lib/mysql
+    networks:
+      - haproxy
+
+  mysql2:
+    container_name: mysql2
+    image: mysql:5.7.40
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: admin
+        MYSQL_DATABASE: wso2
+    volumes:
+      - mysql2:/var/lib/mysql
+    networks:
+      - haproxy
+
+  # lb1:
+  #   container_name: lb1
+  #   image: haproxytech/haproxy-ubuntu:latest
+  #   ports:
+  #     - "23306:3306"
+  #   privileged: true
+  #   cap_add:
+  #     - all
+  #   volumes:
+  #     - ./haproxy.cfg:/etc/haproxy/haproxy.cfg:ro
+  #     - ./keepalived_lb1.conf:/etc/keepalived/keepalived.conf:ro
+  #   sysctls:
+  #      net.ipv4.ip_nonlocal_bind: 1
+  #      net.ipv4.ip_unprivileged_port_start: 0
+  #   networks:
+  #     - haproxy
+
+  # lb2:
+  #   container_name: lb2
+  #   image: haproxytech/haproxy-ubuntu:latest
+  #   ports:
+  #     - "33306:3306"
+  #   privileged: true
+  #   cap_add:
+  #     - all
+  #   volumes:
+  #     - ./haproxy.cfg:/etc/haproxy/haproxy.cfg:ro
+  #     - ./keepalived_lb2.conf:/etc/keepalived/keepalived.conf:ro
+  #   sysctls:
+  #      net.ipv4.ip_nonlocal_bind: 1
+  #      net.ipv4.ip_unprivileged_port_start: 0
+  #   networks:
+  #     - haproxy
+
+volumes:
+  mysql1:
+  mysql2:
+networks:
+  haproxy:

@@ -1,0 +1,23 @@
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure(2) do |config|
+  # Load Balancer Nodes
+  LoadBalancerCount = 2
+
+  (1..LoadBalancerCount).each do |i|
+    config.vm.define "loadbalancer#{i}" do |lb|
+      lb.vm.box               = 'generic/ubuntu2004'
+      lb.vm.box_check_update  = false
+      lb.vm.box_version       = '3.3.0'
+      lb.vm.hostname          = "loadbalancer#{i}.example.com"
+
+      lb.vm.network 'private_network', ip: "172.16.16.5#{i}"
+
+      lb.vm.provider :virtualbox do |v|
+        v.name   = "loadbalancer#{i}"
+        v.memory = 2048
+        v.cpus   = 2
+      end
+    end
+  end
+end
